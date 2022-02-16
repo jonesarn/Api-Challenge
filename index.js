@@ -1,46 +1,49 @@
 const baseUrl = "http://api.exchangeratesapi.io/v1/latest?access_key=dc910983a5b9c10ef5085d83298283cc"
+// Test API to see if it works
 function fetchGetData(){
     fetch(`${baseUrl}`)
     .then((response) => {
         return response.json()
     })
-    .then((justData) => console.log(justData))
+    .then((justData) => {return justData})
 }
 fetchGetData()
-
+// Grab only US Currency Data
 //US Data
 function getUSDData(){
     fetch(`${baseUrl}&symbols=USD`)
-    .then((response) => {
+    .then((response) =>  {
         return response.json()
     })
-    .then((justUSData) => console.log(justUSData))
-      
+    .then((justUSData) => {return justUSData.rates})
+       
 }
 getUSDData()
 
+//Grab Colombian Currency Data
 //Colombian Data
 function getCOPData(){
     fetch(`${baseUrl}&symbols=COP`)
     .then((response) => {
         return response.json()
     })
-    .then((justCOPData) => console.log(justCOPData))
+    .then((justCOPData) => {return justCOPData.rates})
 }
 getCOPData()
 //We need to make USD
-/*function convertFromUSD(x){
+function convertFromUSD(x){
     let conversionRatetoEUR = getUSDData()
+    let conversionRatetoCOL = getCOPData()
     let EURMoneys = x/ conversionRatetoEUR
     let COLMoney = EURMoneys * conversionRatetoCOL
     return COLMoney;
 }
-convertFromUSD(1)
-*/
-function convertToUSD(x){
+console.log(convertFromUSD(1))
+
+/*function convertToUSD(x){
     let convertRate = getUSDData();
     let theMoney = x/ convertRate
-    let ColMoney  = theMoney * convertRate
-    return ColMoney;
+    let CopMoney  = theMoney * convertRate
+    return CopMoney;
 }
-console.log(convertToUSD(3));
+console.log(convertToUSD(3));*/
