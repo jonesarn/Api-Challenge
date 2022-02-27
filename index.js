@@ -1,49 +1,77 @@
+// break down it
+
+// step 2. get 2nd country (Colombia)
+// step 3. get number (1 USD)
+// step 4. convert USD to EUR
+// step 4a. fetch rate from USD to ERU (async)
+// step 4b. convert and get EUR number <-- book processB to do this
+// step 5. convert EUR to COL
+// step 5a. fetch rate from EUR to COL (async)
+// step 5b. convert and get COL number <-- book processC to do this
 const baseUrl = "http://api.exchangeratesapi.io/v1/latest?access_key=dc910983a5b9c10ef5085d83298283cc"
-// Test API to see if it works
-function fetchGetData(){
+    // Test API to see if it works
+function fetchGetData() {
     fetch(`${baseUrl}`)
-    .then((response) => {
-        return response.json()
-    })
-    .then((justData) => {return justData})
+        .then((response) => {
+            return response.json()
+        })
+        .then((justData) => { return justData })
 }
-fetchGetData()
-// Grab only US Currency Data
-//US Data
-function getUSDData(){
-    fetch(`${baseUrl}&symbols=USD`)
-    .then((response) =>  {
-        return response.json()
-    })
-    .then((justUSData) => {return justUSData.rates})
-       
-}
-getUSDData()
+fetchGetData();
 
-//Grab Colombian Currency Data
-//Colombian Data
-function getCOPData(){
-    fetch(`${baseUrl}&symbols=COP`)
-    .then((response) => {
-        return response.json()
-    })
-    .then((justCOPData) => {return justCOPData.rates})
+async function getCurrencyData() {
+    let response = await fetch(`${baseUrl}&symbols=COP,USD,CAD,MXN,EUR`);
+    let data = await response.json();
+    console.log(data)
+    grabRate(data);
 }
-getCOPData()
-//We need to make USD
-function convertFromUSD(x){
-    let conversionRatetoEUR = getUSDData()
-    let conversionRatetoCOL = getCOPData()
-    let EURMoneys = x/ conversionRatetoEUR
-    let COLMoney = EURMoneys * conversionRatetoCOL
-    return COLMoney;
-}
-console.log(convertFromUSD(1))
+getCurrencyData();
 
-/*function convertToUSD(x){
-    let convertRate = getUSDData();
-    let theMoney = x/ convertRate
-    let CopMoney  = theMoney * convertRate
-    return CopMoney;
+
+function grabRate(currency) {
+    //want to grab currency and add currency rate from the country
+    //currency 
+    let cop = currency.rates.COP;
+    let usd = currency.rates.USD;
+    let cad = currency.rates.CAD;
+    let mxn = currency.rates.MXN;
+    let eur = currency.rates.EUR;
+    //grab dropdown element
+
+
+    //const getFirstCountry = document.getElementsByClassName("country2convert");
+    /*let cop2 = currency2.rates.COP;
+        let usd2 = currency2.rates.USD;
+        let cad2 = currency2.rates.CAD;
+        let mxn2 = currency2.rates.MXN;
+        let eur2 = currency2.rates.EUR;
+    */
+    //now we grab the two currencies
+    // first currency
+    //document.getElementById("country2convert").
+};
+
+let firstSelection = document.querySelector('select');
+let result = document.querySelector("span");
+firstSelection.addEventListener('change', () => {
+    result.innerText.firstSelection.options[firstSelection.selectedIndex].value;
+    console.log(firstSelection.selectedIndex);
+})
+
+function convertRate2Money() {
+    let firstRate;
+    let secondRate;
+    //console.log((usd) / eur) //should equal around .88 cents which mean every one dollar for eur money = .88usd
+    //console.log(100 * (cop) / (usd))
+    //console.log(cop / usd)
+    //grab number 
+    amountOfMoney = document.getElementById('amountOne');
+    if (amountOfMoney = NaN) {
+        console.log("This is not a number");
+        window.alert("This is not a number");
+    } else if (amountOfMoney != NaN) {
+        let valueOfMoney = (firstRate) / (amountOfMoney * secondRate);
+        console.log(valueOfMoney);
+    }
 }
-console.log(convertToUSD(3));*/
+convertRate2Money();
