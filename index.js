@@ -1,5 +1,4 @@
 // break down it
-
 // step 2. get 2nd country (Colombia)
 // step 3. get number (1 USD)
 // step 4. convert USD to EUR
@@ -8,6 +7,8 @@
 // step 5. convert EUR to COL
 // step 5a. fetch rate from EUR to COL (async)
 // step 5b. convert and get COL number <-- book processC to do this
+
+//fetching currency in API
 const baseUrl = "http://api.exchangeratesapi.io/v1/latest?access_key=dc910983a5b9c10ef5085d83298283cc"
     // Test API to see if it works
 function fetchGetData() {
@@ -30,14 +31,12 @@ getCurrencyData();
 
 function grabRate(currency) {
     //want to grab currency and add currency rate from the country
-    //currency 
+    //currency put in a variable
     let cop = currency.rates.COP;
     let usd = currency.rates.USD;
     let cad = currency.rates.CAD;
     let mxn = currency.rates.MXN;
     let eur = currency.rates.EUR;
-    //grab dropdown element
-
 
     //const getFirstCountry = document.getElementsByClassName("country2convert");
     /*let cop2 = currency2.rates.COP;
@@ -51,6 +50,7 @@ function grabRate(currency) {
     //document.getElementById("country2convert").
 };
 
+//grab dropdown element- eventually want this in my grab currency 
 let firstSelection = document.querySelector('select');
 let result = document.querySelector("span");
 firstSelection.addEventListener('change', () => {
@@ -66,6 +66,8 @@ function convertRate2Money() {
     //console.log(cop / usd)
     //grab number 
     amountOfMoney = document.getElementById('amountOne');
+    console.log(amountOne.value)
+
     if (amountOfMoney = NaN) {
         console.log("This is not a number");
         window.alert("This is not a number");
