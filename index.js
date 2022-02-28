@@ -9,71 +9,104 @@
 // step 5b. convert and get COL number <-- book processC to do this
 
 //fetching currency in API
-const baseUrl = "http://api.exchangeratesapi.io/v1/latest?access_key=dc910983a5b9c10ef5085d83298283cc"
-    // Test API to see if it works
-function fetchGetData() {
-    fetch(`${baseUrl}`)
-        .then((response) => {
-            return response.json()
-        })
-        .then((justData) => { return justData })
+const baseUrl =   "http://api.exchangeratesapi.io/v1/latest?access_key=dc910983a5b9c10ef5085d83298283cc";
+// Test API to see if it works
+function fetchGetData() {  
+    fetch(`${baseUrl}`)    .then((response) => {       return response.json();     })    .then((justData) => {       return justData;     });
 }
 fetchGetData();
+/////////////// FIRST STEP  DECLARE VARIABLES ///////////////
 
-async function getCurrencyData() {
-    let response = await fetch(`${baseUrl}&symbols=COP,USD,CAD,MXN,EUR`);
-    let data = await response.json();
-    console.log(data)
-    grabRate(data);
+let firstRate; // our first variable of our equation
+let amountOfMoney; // the amount of money the user wants to convert
+let secondRate; // our second variable of our equation
+let newData; // the data we copied from our api
+
+async function getCurrencyData() {  
+    let response = await fetch(`${baseUrl}&symbols=COP,USD,CAD,MXN,EUR`);  
+    let data = await response.json();  
+    if (data) {     // checking if our data is fetched (not null or undefined)
+            
+        newData = {       // copying the data from the api
+                   colombia: data.rates.COP,       usd: data.rates.USD,       canada: data.rates.CAD,       mexico: data.rates.MXN,      };     // }
+             //initial state...
+            
+        firstRate = newData.usd;    
+        secondRate = newData.usd;  
+    }
+
+      
+    console.log("the new data", newData);
 }
 getCurrencyData();
+///////////////// FIRST SET OF DROPDOWNS //////////////////////
+const firstSelection = document.getElementById("country2convert"); //our first dropdown
 
+firstSelection.addEventListener("change", () => {   // we are getting the  value of our first set of dropdowns
+      
+    const dropdownValueOne = firstSelection.value;  
+    switch (    dropdownValueOne // switch statement to check what the value is and set the data accordingly
+          ) {    
+        case "colombia": // if the value of our dropdown is colombia try setting this code... to the variable we set up top which is the global scope
+                  firstRate = newData.colombia;      
+            break;    
+        case "us":
+                  firstRate = newData.usd;      
+            break;    
+        case "canada":
+                  firstRate = newData.canada;      
+            break;    
+        case "mexico":
+                  firstRate = newData.mexico;      
+            break;    
+        default:
+                  break;  
+    }  
+    console.log(`the first rate for ${dropdownValueOne} is: `, firstRate);
+});
+////////////// SECOND SET OF DROPDOWNS //////////////
+const secondSelection = document.getElementById("countryConverted"); // our second dropdown
+secondSelection.addEventListener("change", () => {   // we are getting the  value of our second set of dropdowns
+      
+    const dropdownValueTwo = secondSelection.value;  
+    switch (    dropdownValueTwo // switch statement to check what the value is and set the data accordingly
+          ) {    
+        case "colombia": // if the value of our dropdown is colombia try setting this code... to the variable we set up top which is the global scope
+                  secondRate = newData.colombia;      
+            break;    
+        case "us":
+                  secondRate = newData.usd;      
+            break;    
+        case "canada":
+                  secondRate = newData.canada;      
+            break;    
+        case "mexico":
+                  secondRate = newData.mexico;      
+            break;    
+        default:
+                  break;  
+    }  
+    console.log(`the second rate for ${dropdownValueTwo} is: `, secondRate);
+});
+const inputAmount = document.getElementById("inputAmount"); // our input
+inputAmount.addEventListener("input", () => {  
+    amountOfMoney = inputAmount.value;  
+    const number = parseFloat(amountOfMoney);  
+    amountOfMoney = number;  
+    console.log("this is our input: ", number);
+});
 
-function grabRate(currency) {
-    //want to grab currency and add currency rate from the country
-    //currency put in a variable
-    let cop = currency.rates.COP;
-    let usd = currency.rates.USD;
-    let cad = currency.rates.CAD;
-    let mxn = currency.rates.MXN;
-    let eur = currency.rates.EUR;
-
-    //const getFirstCountry = document.getElementsByClassName("country2convert");
-    /*let cop2 = currency2.rates.COP;
-        let usd2 = currency2.rates.USD;
-        let cad2 = currency2.rates.CAD;
-        let mxn2 = currency2.rates.MXN;
-        let eur2 = currency2.rates.EUR;
-    */
-    //now we grab the two currencies
-    // first currency
-    //document.getElementById("country2convert").
-};
-
-//grab dropdown element- eventually want this in my grab currency 
-let firstSelection = document.querySelector('select');
-let result = document.querySelector("span");
-firstSelection.addEventListener('change', () => {
-    result.innerText.firstSelection.options[firstSelection.selectedIndex].value;
-    console.log(firstSelection.selectedIndex);
-})
-
-function convertRate2Money() {
-    let firstRate;
-    let secondRate;
-    //console.log((usd) / eur) //should equal around .88 cents which mean every one dollar for eur money = .88usd
-    //console.log(100 * (cop) / (usd))
-    //console.log(cop / usd)
-    //grab number 
-    amountOfMoney = document.getElementById('amountOne');
-    console.log(amountOne.value)
-
-    if (amountOfMoney = NaN) {
-        console.log("This is not a number");
-        window.alert("This is not a number");
-    } else if (amountOfMoney != NaN) {
-        let valueOfMoney = (firstRate) / (amountOfMoney * secondRate);
-        console.log(valueOfMoney);
-    }
+function convertRate2Money() {  
+    const inputAmount = document.getElementById("inputAmount");   //   if (inputAmount && typeof inputAmount === Number) {
+       // if its truthy and a number
+      
+    if (inputAmount.value) {     // checking if its truthy or there is a value
+            
+        const mulitplied = Math.imul(amountOfMoney, secondRate);    
+        const valueOfMoney = firstRate / mulitplied;    
+        console.log(valueOfMoney);    
+        document.getElementById(      "display"    ).innerHTML = `your converted currency is: ${valueOfMoney}`;  
+    }   //   }
 }
-convertRate2Money();
+const convertButton = document.getElementById("convertMoney"); // our button
+convertButton.addEventListener("click", convertRate2Money);
