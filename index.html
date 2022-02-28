@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="index.css">
     <title>Currency Converter</title>
 </head>
+
 <body>
     <header>
         <ul id="home">
@@ -15,14 +17,13 @@
             <li><a href="#about">About</a></li>
             <li><a href="#currency">Currency Converter</a></li>
             <li style="float:right"><a href="#amount of money">Amount of money</a></li>
-          </ul>   
+        </ul>
     </header>
     <main>
         <section id="about">
             <h2>Welcome to my Currency Converter</h2>
             <p>
-                Welcome to my page.Today we are going to make a currency converter for my API project.Hopefully, I can use this 
-                for my recent trip to Colombia coming up. 
+                Welcome to my page.Today we are going to make a currency converter for my API project.Hopefully, I can use this for my recent trip to Colombia coming up.
             </p>
         </section id="currency">
         <section>
@@ -30,35 +31,40 @@
             <form>
                 <div>
                     <label for="country1">Choose first Country:</label>
-                <select id="country" name="countries">
-                    <option value="us">United States</option>
+                    <select id="country2convert" name="countries1">
+                    <option value="us" selected>United States</option>
                     <option value="colombia">Colombia</option>
                     <option value="mexico">Mexico</option>
                     <option value="canada">Canada</option>
                 </select>
-                <input type="textarea" placeholder="Amount of money Here">
-              
+                    <input id="amountOne" type="textarea" placeholder="Amount of money Here">
+
                 </div>
-                
+
                 <div>
                     <label for="country2">Choose Second Country:</label>
-                <select id="country" name="countries">
-                    <option value="us">United States</option>
+                    <select id="countryConverted" name="countries2">
+                    <option value="us" selected>United States</option>
                     <option value="colombia">Colombia</option>
                     <option value="mexico">Mexico</option>
                     <option value="canada">Canada</option>
                 </select>
-                
-                <button id="convertMoney">Convert</button>
+
+                    <button id="convertMoney" onclick="">Convert</button>
                 </div>
-                
             </form>
         </section>
+        <div>
+            <span id="display">
+                
+            </span>
+        </div>
     </main>
     <footer>
 
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script  src = "./index.js"></script> 
+    <script src="./index.js"></script>
 </body>
+
 </html>
